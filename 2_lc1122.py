@@ -28,3 +28,22 @@ class Solution:
         result.extend(copy_arr1)
 
         return result
+    
+
+
+#better approach
+class Solution:
+    def relativeSortArray(self, arr1: List[int], arr2: List[int]) -> List[int]:
+        freq = Counter(arr1)  # Clean and efficient
+        result = []
+
+        for num in arr2:
+            result.extend([num] * freq[num])
+            del freq[num]  # Remove so we don’t process again
+
+        # Remaining elements not in arr2
+        remaining = []
+        for num in freq:
+            remaining.extend([num] * freq[num])
+
+        return result + sorted(remaining)
